@@ -51,4 +51,8 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function makeNewStory() {}
+function makeNewStory(e) {
+  
+}
+
+$($storySubmitForm).on("submit", makeNewStory);

@@ -36,13 +36,18 @@
       <div class="navbar-brand">
         <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
       </div>
+      <div class="main-nav-link">
+        <a class="nav-link" href="#" id="story-submit-link">Submit</a>
+        <a class="nav-link" href="#" id="favorites-link">Favorites</a>
+        <a class="nav-link" href="#" id="my-stories-link">My Stories</a>
+      </div>
       <div class="nav-right">
         <a class="nav-link" href="#" id="nav-login">login/signup</a>
         <a class="nav-link" href="#" id="nav-user-profile"></a>
         <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
       </div>
     </nav>
-    <form>
+    <form id="story-submit-form" class="hidden">
       <div>
         <label for="author-input">author</label>
         <input id="author-input" type="text" placeholder="author name" />
