@@ -62,6 +62,7 @@ $($storySubmitForm).on("submit", submitAndDisplayStory);
  */
 async function submitAndDisplayStory(e) {
   e.preventDefault();
+  
   /* Works but do not understand
   const data = new FormData(e.target);
   console.log(data.entries());
@@ -83,9 +84,18 @@ async function submitAndDisplayStory(e) {
     let storyObj = {author : formData[0]["author"], title: formData[1]["title"], url: formData[2]["url"]};
     let storyInstance = await storyList.addStory(currentUser, storyObj);
 
+      /* Wrote morning of 1/21, might be a tidier solution
+      *than the above lines;
+
+        const story = formData.reduce((a, obj) => {
+        let objKeys = Object.keys(obj);
+        a[objKeys[0]] = obj[objKeys[0]];
+        return a;
+        });
+      */
+
     //console.log("storyInstance URL: " + storyInstance.url);
     //console.log(storyInstance);
-
     $allStoriesList.prepend(generateStoryMarkup(storyInstance));
     hidePageComponents();
     $allStoriesList.show();
