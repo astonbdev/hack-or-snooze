@@ -19,7 +19,7 @@ $body.on("click", "#nav-all", navAllStories);
 function navFavoriteStories(evt) {
   console.debug("navFavoriteStories", evt);
   hidePageComponents();
-  putFavoriteStoriesOnPage(favorites);
+  putFavoriteStoriesOnPage();
 }
 
 $("#favorites-link").on("click", navFavoriteStories);

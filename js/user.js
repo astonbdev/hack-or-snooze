@@ -121,11 +121,12 @@ function updateUIOnUserLogin() {
  * finds the associated storyId and then toggles the UI
  * to reflect favorite status and updates server with new status
  */
-function toggleUserFavoriteStory(e){
+async function toggleUserFavoriteStory(e){
   const $favoriteStar = $(e.target);
   const targetId = $favoriteStar.closest("li").attr("id");
   let targetStory;
 
+  //use array method find
   for(let story of storyList.stories){
     if(story.storyId === targetId){
       targetStory = story;
@@ -134,12 +135,13 @@ function toggleUserFavoriteStory(e){
   }
 
   if($favoriteStar.attr("class") === "far fa-star"){
+    await currentUser.addFavorite(targetStory);
     $favoriteStar.attr("class", "fas fa-star");
-    currentUser.addFavorite(targetStory);
+
   }
   else{
+    await currentUser.removeFavorite(targetStory);
     $favoriteStar.attr("class" ,"far fa-star");
-    currentUser.removeFavorite(targetStory);
   }
 }
 
