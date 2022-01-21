@@ -86,6 +86,8 @@ class StoryList {
       },
     });
 
+    this.stories.unshift(response.data.story);
+
     //console.log(response.data);
     //console.log(response.data.story);
 
@@ -202,5 +204,29 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  async addFavorite(story) {
+    this.favorites.push(story);
+    console.log(this.favorites);
+
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "POST",
+      data: { token: this.loginToken },
+    });
+  }
+
+  async removeFavorite(story) {
+    const index = this.favorites.indexOf(story);
+
+    this.favorites.splice(index, 1);
+    console.log(this.favorites);
+
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: "DELETE",
+      data: { token: this.loginToken },
+    });
   }
 }
