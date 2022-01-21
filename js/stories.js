@@ -55,13 +55,38 @@ function makeNewStory(e) {}
 
 $($storySubmitForm).on("submit", submitAndDisplayStory);
 
-function submitAndDisplayStory(e) {
+/** Formats form data into obj of {title, author, id} with 
+ * values from form, and calls addStory() from storyList 
+ * to generate Story from server. Finally, generates markup 
+ * with new story and appends to $allStoriesList
+ */
+async function submitAndDisplayStory(e) {
   e.preventDefault();
-  const { title, author, url } = $storySubmitForm
+  /* Works but do not understand
+  const data = new FormData(e.target);
+  console.log(data.entries());
+
+  const value = Object.fromEntries(data.entries());
+
+  console.log(value);
+  */
+
+  let formData = $storySubmitForm
     .serializeArray()
-    .forEach((obj) => {});
+    .map((obj) => { 
+      //working
+      const newObj = {};
+      newObj[obj.name] = obj.value;
+      return newObj;
+    });
 
-  $storySubmitForm.serializeArray();
+    let storyObj = {author : formData[0]["author"], title: formData[1]["title"], url: formData[2]["url"]};
+    let storyInstance = await storyList.addStory(currentUser, storyObj);
 
-  // const authorInput = $storySubmitForm.find("input[id='author-input']").val();
-}
+    //console.log("storyInstance URL: " + storyInstance.url);
+    //console.log(storyInstance);
+
+    $allStoriesList.prepend(generateStoryMarkup(storyInstance));
+    hidePageComponents();
+    $allStoriesList.show();
+  }
