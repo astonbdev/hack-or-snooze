@@ -51,8 +51,17 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function makeNewStory(e) {
-  
-}
+function makeNewStory(e) {}
 
-$($storySubmitForm).on("submit", makeNewStory);
+$($storySubmitForm).on("submit", submitAndDisplayStory);
+
+function submitAndDisplayStory(e) {
+  e.preventDefault();
+  const { title, author, url } = $storySubmitForm
+    .serializeArray()
+    .forEach((obj) => {});
+
+  $storySubmitForm.serializeArray();
+
+  // const authorInput = $storySubmitForm.find("input[id='author-input']").val();
+}

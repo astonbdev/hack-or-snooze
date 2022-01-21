@@ -35,7 +35,8 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-function showStorySubmit(){
+/** reveals story submit form when submit navbar button is clicked */
+function showStorySubmit() {
   $($storySubmitForm).show();
 }
 
