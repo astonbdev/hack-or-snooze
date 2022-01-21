@@ -19,7 +19,7 @@ $body.on("click", "#nav-all", navAllStories);
 function navFavoriteStories(evt) {
   console.debug("navFavoriteStories", evt);
   hidePageComponents();
-  putFavoriteStoriesOnPage();
+  putFavoriteStoriesOnPage(favorites);
 }
 
 $("#favorites-link").on("click", navFavoriteStories);
@@ -46,8 +46,13 @@ function updateNavOnLogin() {
 }
 
 /** reveals story submit form when submit navbar button is clicked */
-function showStorySubmit() {
-  $($storySubmitForm).show();
+function toggleStorySubmit() {
+  if($storySubmitForm.is(":visible")){
+    $storySubmitForm.hide();
+  }
+  else{
+    $storySubmitForm.show();
+  }
 }
 
-$($navSubmitStory).on("click", showStorySubmit);
+$($navSubmitStory).on("click", toggleStorySubmit);
