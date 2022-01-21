@@ -72,7 +72,7 @@ async function submitAndDisplayStory(e) {
   console.log(value);
   */
 
-  let formData = $storySubmitForm
+  const formData = $storySubmitForm
     .serializeArray()
     .map((obj) => { 
       //working
@@ -81,8 +81,8 @@ async function submitAndDisplayStory(e) {
       return newObj;
     });
 
-    let storyObj = {author : formData[0]["author"], title: formData[1]["title"], url: formData[2]["url"]};
-    let storyInstance = await storyList.addStory(currentUser, storyObj);
+    const storyObj = {author : formData[0]["author"], title: formData[1]["title"], url: formData[2]["url"]};
+    const storyInstance = await storyList.addStory(currentUser, storyObj);
 
       /* Wrote morning of 1/21, might be a tidier solution
       *than the above lines;
