@@ -27,8 +27,8 @@ function generateStoryMarkup(story) {
   //console.log("Story: ",story);
   //console.log("Favorites: ", currentUser.favorites);
 
-  for(let favStory of currentUser.favorites){
-    if(favStory.storyId === story.storyId){
+  for (let favStory of currentUser.favorites) {
+    if (favStory.storyId === story.storyId) {
       favoriteStar = "fas";
     }
   }
@@ -65,18 +65,26 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-function makeNewStory(e) {}
+/** From current user's favorite stories, generates their HTML, and puts on page. */
 
-$($storySubmitForm).on("submit", submitAndDisplayStory);
+function putFavoriteStoriesOnPage() {
+  $favoriteStoriesList.empty();
 
-/** Formats form data into obj of {title, author, id} with 
- * values from form, and calls addStory() from storyList 
- * to generate Story from server. Finally, generates markup 
+  for (let story of currentUser.favorites) {
+    const $story = generateStoryMarkup(story);
+    $favoriteStoriesList.append($story);
+  }
+  $favoriteStoriesList.show();
+}
+
+/** Formats form data into obj of {title, author, id} with
+ * values from form, and calls addStory() from storyList
+ * to generate Story from server. Finally, generates markup
  * with new story and appends to $allStoriesList
  */
 async function submitAndDisplayStory(e) {
   e.preventDefault();
-  
+
   /* Works but do not understand
   const data = new FormData(e.target);
   console.log(data.entries());
@@ -86,18 +94,16 @@ async function submitAndDisplayStory(e) {
   console.log(value);
   */
 
-  [{author: "Brian"} , {}]
+  [{ author: "Brian" }, {}];
 
-  const formData = $storySubmitForm
-    .serializeArray()
-    .map((obj) => { 
-      //working
-      const newObj = {};
-      newObj[obj.name] = obj.value;
-      return newObj;
-    });
+  const formData = $storySubmitForm.serializeArray().map((obj) => {
+    //working
+    const newObj = {};
+    newObj[obj.name] = obj.value;
+    return newObj;
+  });
 
-    /*
+  /*
     const storyObj = {
       author : formData[0]["author"], 
       title: formData[1]["title"], 
@@ -105,17 +111,19 @@ async function submitAndDisplayStory(e) {
     };
     */
 
-    const storyObj = formData.reduce((prevVal, obj) => {
-      let objKeys = Object.keys(obj);
-      prevVal[objKeys[0]] = obj[objKeys[0]];
-      return prevVal;
-    });
+  const storyObj = formData.reduce((prevVal, obj) => {
+    let objKeys = Object.keys(obj);
+    prevVal[objKeys[0]] = obj[objKeys[0]];
+    return prevVal;
+  });
 
-    const storyInstance = await storyList.addStory(currentUser, storyObj);
-    //console.log("storyInstance URL: " + storyInstance.url);
-    //console.log(storyInstance);
-    //unshift story to mem js
-    $allStoriesList.prepend(generateStoryMarkup(storyInstance));
-    hidePageComponents();
-    $allStoriesList.show();
-  }
+  const storyInstance = await storyList.addStory(currentUser, storyObj);
+  //console.log("storyInstance URL: " + storyInstance.url);
+  //console.log(storyInstance);
+  //unshift story to mem js
+  $allStoriesList.prepend(generateStoryMarkup(storyInstance));
+  hidePageComponents();
+  $allStoriesList.show();
+}
+
+$($storySubmitForm).on("submit", submitAndDisplayStory);
