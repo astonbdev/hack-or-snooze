@@ -81,7 +81,11 @@ async function submitAndDisplayStory(e) {
       return newObj;
     });
 
-    const storyObj = {author : formData[0]["author"], title: formData[1]["title"], url: formData[2]["url"]};
+    const storyObj = {
+      author : formData[0]["author"], 
+      title: formData[1]["title"], 
+      url: formData[2]["url"]
+    };
     const storyInstance = await storyList.addStory(currentUser, storyObj);
 
       /* Wrote morning of 1/21, might be a tidier solution
