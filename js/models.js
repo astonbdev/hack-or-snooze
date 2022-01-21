@@ -206,6 +206,7 @@ class User {
     }
   }
 
+  /** Takes a story instance and makes a POST request to update the users favorites on the server */
   async addFavorite(story) {
     this.favorites.push(story);
     console.log(this.favorites);
@@ -217,6 +218,7 @@ class User {
     });
   }
 
+  /** Takes a story instance and makes a DELETE request to update the users favorites on the server */
   async removeFavorite(story) {
     const index = this.favorites.indexOf(story);
 

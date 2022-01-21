@@ -22,9 +22,23 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
+  //used to determin what star css class to add to listed story
+  let favoriteStar = "far";
+  //console.log("Story: ",story);
+  //console.log("Favorites: ", currentUser.favorites);
+
+  for(let favStory of currentUser.favorites){
+    if(favStory.storyId === story.storyId){
+      favoriteStar = "fas";
+    }
+  }
+
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+      <span class="star">
+        <i class = "${favoriteStar} fa-star"></i>
+      </span
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -72,6 +86,8 @@ async function submitAndDisplayStory(e) {
   console.log(value);
   */
 
+  [{author: "Brian"} , {}]
+
   const formData = $storySubmitForm
     .serializeArray()
     .map((obj) => { 
@@ -98,6 +114,7 @@ async function submitAndDisplayStory(e) {
     const storyInstance = await storyList.addStory(currentUser, storyObj);
     //console.log("storyInstance URL: " + storyInstance.url);
     //console.log(storyInstance);
+    //unshift story to mem js
     $allStoriesList.prepend(generateStoryMarkup(storyInstance));
     hidePageComponents();
     $allStoriesList.show();
