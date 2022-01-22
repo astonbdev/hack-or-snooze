@@ -112,7 +112,7 @@ function updateUIOnUserLogin() {
 
   hidePageComponents();
 
-  $allStoriesList.show();
+  putStoriesOnPage();
 
   updateNavOnLogin();
 }
@@ -121,24 +121,23 @@ function updateUIOnUserLogin() {
  * finds the associated storyId and then toggles the UI
  * to reflect favorite status and updates server with new status
  */
-function toggleUserFavoriteStory(e){
+function toggleUserFavoriteStory(e) {
   const $favoriteStar = $(e.target);
   const targetId = $favoriteStar.closest("li").attr("id");
   let targetStory;
 
-  for(let story of storyList.stories){
-    if(story.storyId === targetId){
+  for (let story of storyList.stories) {
+    if (story.storyId === targetId) {
       targetStory = story;
       break;
     }
   }
 
-  if($favoriteStar.attr("class") === "far fa-star"){
+  if ($favoriteStar.attr("class") === "far fa-star") {
     $favoriteStar.attr("class", "fas fa-star");
     currentUser.addFavorite(targetStory);
-  }
-  else{
-    $favoriteStar.attr("class" ,"far fa-star");
+  } else {
+    $favoriteStar.attr("class", "far fa-star");
     currentUser.removeFavorite(targetStory);
   }
 }

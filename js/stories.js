@@ -27,18 +27,22 @@ function generateStoryMarkup(story) {
   //console.log("Story: ",story);
   //console.log("Favorites: ", currentUser.favorites);
 
-  for (let favStory of currentUser.favorites) {
-    if (favStory.storyId === story.storyId) {
-      favoriteStar = "fas";
+  let starMarkUp = "";
+
+  console.log(currentUser);
+
+  if (currentUser) {
+    for (let favStory of currentUser.favorites) {
+      if (favStory.storyId === story.storyId) {
+        favoriteStar = "fas";
+      }
     }
+    starMarkUp = `<span class="star"><i class = "${favoriteStar} fa-star"></i></span>`;
   }
 
   const hostName = story.getHostName();
   return $(`
-      <li id="${story.storyId}">
-      <span class="star">
-        <i class = "${favoriteStar} fa-star"></i>
-      </span
+      <li id="${story.storyId}">${starMarkUp}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -93,8 +97,6 @@ async function submitAndDisplayStory(e) {
 
   console.log(value);
   */
-
-  [{ author: "Brian" }, {}];
 
   const formData = $storySubmitForm.serializeArray().map((obj) => {
     //working
