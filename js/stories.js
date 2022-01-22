@@ -42,14 +42,7 @@ function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();
   return $(`
-<<<<<<< HEAD
       <li id="${story.storyId}">${starMarkUp}
-=======
-      <li id="${story.storyId}">
-      <span class="star" style="cursor: pointer">
-        <i class = "${favoriteStar} fa-star"></i>
-      </span
->>>>>>> c973ff95377a3b4dbc324c8bd6edaaa6d2c3a570
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -105,33 +98,10 @@ async function submitAndDisplayStory(e) {
 
   console.log(storyObj);
 
-<<<<<<< HEAD
-  const formData = $storySubmitForm.serializeArray().map((obj) => {
-    //working
-    const newObj = {};
-    newObj[obj.name] = obj.value;
-    return newObj;
-  });
-
-  /*
-    const storyObj = {
-      author : formData[0]["author"], 
-      title: formData[1]["title"], 
-      url: formData[2]["url"]
-    };
-    */
-
-  const storyObj = formData.reduce((prevVal, obj) => {
-    let objKeys = Object.keys(obj);
-    prevVal[objKeys[0]] = obj[objKeys[0]];
-    return prevVal;
-  });
-=======
   //reset form
   for(let input of $(e.target)){
     input.reset();
   }
->>>>>>> c973ff95377a3b4dbc324c8bd6edaaa6d2c3a570
 
   //make server call, and update ui
   const storyInstance = await storyList.addStory(currentUser, storyObj);
