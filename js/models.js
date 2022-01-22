@@ -86,7 +86,7 @@ class StoryList {
       },
     });
 
-    this.stories.unshift(response.data.story);
+    this.stories.unshift(new Story(response.data.story));
 
     //console.log(response.data);
     //console.log(response.data.story);
@@ -209,9 +209,9 @@ class User {
   /** Takes a story instance and makes a POST request to update the users favorites on the server */
   async addFavorite(story) {
     this.favorites.push(story);
-    console.log(this.favorites);
+    //console.log(this.favorites);
 
-    const response = await axios({
+    await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: "POST",
       data: { token: this.loginToken },
@@ -221,11 +221,10 @@ class User {
   /** Takes a story instance and makes a DELETE request to update the users favorites on the server */
   async removeFavorite(story) {
     const index = this.favorites.indexOf(story);
-
     this.favorites.splice(index, 1);
-    console.log(this.favorites);
+    //console.log(this.favorites);
 
-    const response = await axios({
+    await axios({
       url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
       method: "DELETE",
       data: { token: this.loginToken },

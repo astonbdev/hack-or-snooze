@@ -42,7 +42,14 @@ function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();
   return $(`
+<<<<<<< HEAD
       <li id="${story.storyId}">${starMarkUp}
+=======
+      <li id="${story.storyId}">
+      <span class="star" style="cursor: pointer">
+        <i class = "${favoriteStar} fa-star"></i>
+      </span
+>>>>>>> c973ff95377a3b4dbc324c8bd6edaaa6d2c3a570
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -81,7 +88,7 @@ function putFavoriteStoriesOnPage() {
   $favoriteStoriesList.show();
 }
 
-/** Formats form data into obj of {title, author, id} with
+/** Formats form data into obj of {title, author, url} with
  * values from form, and calls addStory() from storyList
  * to generate Story from server. Finally, generates markup
  * with new story and appends to $allStoriesList
@@ -89,15 +96,16 @@ function putFavoriteStoriesOnPage() {
 async function submitAndDisplayStory(e) {
   e.preventDefault();
 
-  /* Works but do not understand
-  const data = new FormData(e.target);
-  console.log(data.entries());
+  let storyObj = {};
 
-  const value = Object.fromEntries(data.entries());
+  //Extract data
+  storyObj.title = $("#title-input").val();
+  storyObj.author = $("#author-input").val();
+  storyObj.url = $("#url-input").val();
 
-  console.log(value);
-  */
+  console.log(storyObj);
 
+<<<<<<< HEAD
   const formData = $storySubmitForm.serializeArray().map((obj) => {
     //working
     const newObj = {};
@@ -118,14 +126,19 @@ async function submitAndDisplayStory(e) {
     prevVal[objKeys[0]] = obj[objKeys[0]];
     return prevVal;
   });
+=======
+  //reset form
+  for(let input of $(e.target)){
+    input.reset();
+  }
+>>>>>>> c973ff95377a3b4dbc324c8bd6edaaa6d2c3a570
 
+  //make server call, and update ui
   const storyInstance = await storyList.addStory(currentUser, storyObj);
-  //console.log("storyInstance URL: " + storyInstance.url);
-  //console.log(storyInstance);
-  //unshift story to mem js
   $allStoriesList.prepend(generateStoryMarkup(storyInstance));
   hidePageComponents();
   $allStoriesList.show();
+  
 }
 
 $($storySubmitForm).on("submit", submitAndDisplayStory);
